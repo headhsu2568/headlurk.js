@@ -1,0 +1,9 @@
+[
+    {
+        "content": "what you want to plurk", 
+        "qualifier": "loves | likes | shares | gives | hates | wants | has | will | asks | wishes | was | feels | thinks | says | is | : | freestyle | hopes | needs | wonders", 
+        "cliques": [array of cliques can see the plurk], 
+        "friends": [array of friends can see the plurk], 
+        "fb": 0 | 1(also post to facebook if it can)
+    }
+]

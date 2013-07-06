@@ -20,7 +20,6 @@ function checkPlurks() {
             else if(lastCheckHours === plurkHours && lastCheckMins > plurkMins) continue;
         }
         plurk(plurks[i]);
-        return;
     }
     lastCheckTime = now;
     lastCheckHours = nowHours;

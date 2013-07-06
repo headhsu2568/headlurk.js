@@ -1,0 +1,22 @@
+[
+    {
+        "content": "example 1", 
+        "qualifier": "like", 
+        "fb": 1, 
+        "daily": "17:30"
+    }, 
+    {
+        "content": "example 2", 
+        "qualifier": "says", 
+        "cliques": ["group 1", "group 2"], 
+        "fb": 0, 
+        "daily": "06:25"
+    }, 
+    {
+        "content": "example 3", 
+        "qualifier": ":", 
+        "cliques": [], 
+        "fb": 0, 
+        "daily": "00:00"
+    }
+]

@@ -1,4 +1,4 @@
-hEaDlurk.js v0.1
+hEaDlurk.js v1.0
 ================
 
 Plurk via Plurk OAuth API 2.0
@@ -10,6 +10,10 @@ Required Modules
 [node-oauth](https://github.com/ciaranj/node-oauth)
 
     npm install fibers oauth
+
+Quick Start
+-----------
+    node daemon.js
 
 <br />
 - - -

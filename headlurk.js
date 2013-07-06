@@ -14,7 +14,7 @@ var loginCookie = '';
 var accessToken = '';
 var accessTokenSecret = '';
 var verifier = '';
-var limitTo = [];
+var limitTo = null;
 
 function getRequestToken() {
     O.getOAuthRequestToken(requestTokenCallback);
@@ -154,12 +154,14 @@ function getLimitTo(clique, friend) {
     }
     else if(friend) {
     }
+    else return;
     O.post(path, accessToken, accessTokenSecret, param, 'application/json', getLimitToCallback);
     fibers.yield();
     console.log('Limit To: ' + limitTo.toString());
 }
 function getLimitToCallback(error, data, res) {
     var list = JSON.parse(data);
+    if(limitTo === null) limitTo = [];
     for(var i in list) {
         limitTo.push(list[i].id);
     }
@@ -170,14 +172,13 @@ function plurkAdd(content, qualifier, fb) {
     if(fb != 1) content = '!fb ' + content;
     qualifier = (qualifier) ? qualifier : 'says';
     var lang = 'tr_cn';
-    var limitToStr = '[' + limitTo.toString() + ']';
     var path = 'http://www.plurk.com/APP/Timeline/plurkAdd';
     var param = {
         'content': content, 
         'qualifier': qualifier, 
-        'lang': lang, 
-        'limited_to': limitToStr
+        'lang': lang
     };
+    if(limitTo !== null) param['limited_to'] = '[' + limitTo.toString() + ']';
     console.log(param);
     O.post(path, accessToken, accessTokenSecret, param, 'application/json', plurkAddCallback);
     fibers.yield();

@@ -1,8 +1,9 @@
-global.fibers = require('fibers');
+var fibers = require('fibers');
+var current = null;
 var oauth = require('oauth');
 var http = require('http');
 var querystring = require('querystring');
-var plurks = require('./plurks.json');
+var plurks = (typeof process.env.plurks === 'undefined') ? require('./plurks.json') : process.env.plurks;
 var config = require('./config.json');
 var consumerKey = config.consumerKey;
 var consumerSecret = config.consumerSecret;
@@ -17,7 +18,7 @@ var limitTo = [];
 
 function getRequestToken() {
     O.getOAuthRequestToken(requestTokenCallback);
-    global.fibers.yield();
+    fibers.yield();
     console.log('Token: ' + token);
     console.log('Token Secret: ' + tokenSecret);
 }
@@ -28,7 +29,7 @@ function requestTokenCallback(error, t, ts, result) {
     else {
         token = t;
         tokenSecret = ts;
-        global.current.run();
+        current.run();
     }
 }
 function getLoginToken() {
@@ -37,7 +38,7 @@ function getLoginToken() {
         path: '/Users/showLogin'
     };
     http.request(opt, loginTokenCallback).end();
-    global.fibers.yield();
+    fibers.yield();
     console.log('Login Token: ' + loginToken);
 }
 function loginTokenCallback (response) {
@@ -48,7 +49,7 @@ function loginTokenCallback (response) {
     response.on('end', function() {
             var match = result.match(/login_token"\s*value\s*=\s*"(\S*)"/);
             loginToken = match[1];
-            global.current.run();
+            current.run();
             });
 }
 function login() {
@@ -71,7 +72,7 @@ function login() {
     var req = http.request(opt, loginCallback);
     req.write(postdata);
     req.end();
-    global.fibers.yield();
+    fibers.yield();
     console.log('Login Cookie: ' + loginCookie);
 }
 function loginCallback (response) {
@@ -81,7 +82,7 @@ function loginCallback (response) {
             });
     response.on('end', function() {
             loginCookie = response.headers['set-cookie'][0];
-            global.current.run();
+            current.run();
             });
 }
 function authorize() {
@@ -103,7 +104,7 @@ function authorize() {
     var req = http.request(opt, authorizeCallback);
     req.write(postdata);
     req.end();
-    global.fibers.yield();
+    fibers.yield();
     console.log('Verifier: ' + verifier);
 }
 function authorizeCallback (response) {
@@ -114,12 +115,12 @@ function authorizeCallback (response) {
     response.on('end', function() {
             var match = result.match(/oauth_verifier"\D*(\d*)/);
             verifier = match[1];
-            global.current.run();
+            current.run();
             });
 }
 function getAccessToken() {
     O.getOAuthAccessToken(token, tokenSecret, verifier, accessTokenCallback);
-    global.fibers.yield();
+    fibers.yield();
     console.log('Access Token: ' + accessToken);
     console.log('Access Token Secret: ' + accessTokenSecret);
 }
@@ -130,7 +131,7 @@ function accessTokenCallback(error, at, ats, result) {
     else {
         accessToken = at;
         accessTokenSecret = ats;
-        global.current.run();
+        current.run();
     }
 }
 
@@ -154,7 +155,7 @@ function getLimitTo(clique, friend) {
     else if(friend) {
     }
     O.post(path, accessToken, accessTokenSecret, param, 'application/json', getLimitToCallback);
-    global.fibers.yield();
+    fibers.yield();
     console.log('Limit To: ' + limitTo.toString());
 }
 function getLimitToCallback(error, data, res) {
@@ -162,7 +163,7 @@ function getLimitToCallback(error, data, res) {
     for(var i in list) {
         limitTo.push(list[i].id);
     }
-    global.current.run();
+    current.run();
 }
 
 function plurkAdd(content, qualifier, fb) {
@@ -179,15 +180,15 @@ function plurkAdd(content, qualifier, fb) {
     };
     console.log(param);
     O.post(path, accessToken, accessTokenSecret, param, 'application/json', plurkAddCallback);
-    global.fibers.yield();
+    fibers.yield();
 }
 function plurkAddCallback(error, data, res) {
     console.log(data);
 }
 
-global.fibers(function() {
-        global.current = global.fibers.current;
-        global.O = new oauth.OAuth('http://www.plurk.com/OAuth/request_token', 'http://www.plurk.com/OAuth/access_token', consumerKey, consumerSecret, '1.0', null, 'HMAC-SHA1');
+fibers(function() {
+        current = fibers.current;
+        O = new oauth.OAuth('http://www.plurk.com/OAuth/request_token', 'http://www.plurk.com/OAuth/access_token', consumerKey, consumerSecret, '1.0', null, 'HMAC-SHA1');
         getRequestToken();
         getLoginToken();
         login();

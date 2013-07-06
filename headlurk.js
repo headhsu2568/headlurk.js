@@ -137,9 +137,11 @@ function accessTokenCallback(error, at, ats, result) {
 
 function plurk(p) {
     for(var i in p.cliques) {
+        if(limitTo === null) limitTo = [];
         getLimitTo(p.cliques[i], null);
     }
     for(var i in p.friends) {
+        if(limitTo === null) limitTo = [];
         getLimitTo(null, p.friends[i]);
     }
     plurkAdd(p.content, p.qualifier, p.fb);
@@ -161,7 +163,6 @@ function getLimitTo(clique, friend) {
 }
 function getLimitToCallback(error, data, res) {
     var list = JSON.parse(data);
-    if(limitTo === null) limitTo = [];
     for(var i in list) {
         limitTo.push(list[i].id);
     }

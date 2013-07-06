@@ -3,7 +3,7 @@ var current = null;
 var oauth = require('oauth');
 var http = require('http');
 var querystring = require('querystring');
-var plurks = (typeof process.env.plurks === 'undefined') ? require('./plurks.json') : process.env.plurks;
+var plurks = (typeof process.env.plurks === 'undefined') ? require('./plurks.json') : JSON.parse(process.env.plurks);
 var config = require('./config.json');
 var consumerKey = config.consumerKey;
 var consumerSecret = config.consumerSecret;

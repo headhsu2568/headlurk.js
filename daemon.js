@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn;
-var checkInterval = 5 * 60 * 1000; // check plurks per 5 mins
+var checkInterval = 10 * 60 * 1000;
 var lastCheckTime = null;
 var lastCheckHours = null;
 var lastCheckMins = null;
@@ -26,12 +26,13 @@ function checkPlurks() {
     lastCheckMins = nowMins;
 }
 function plurk(p) {
+    console.log('child process is created for content: ' + p.content);
     var child = spawn('node', 
             ['./headlurk.js'], 
             {
                 stdio: 'inherit', 
                 env: {
-                    'plurks': [p]
+                    'plurks': JSON.stringify([p])
                 }
             });
     child.on('close', function(code) {

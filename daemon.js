@@ -7,7 +7,7 @@ var lastCheckMins = null;
 function checkPlurks() {
     var plurks = require('./plurks.json');
     var now = new Date();
-    var nowHours = now.getMinutes();
+    var nowHours = now.getHours();
     var nowMins = now.getMinutes();
     for(var i in plurks) {
         var plurkTime = plurks[i].daily.split(':');

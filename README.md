@@ -15,7 +15,7 @@ Quick Start
 
         npm install fibers oauth
 
-* Register a pair of Plurk APP(consumer) key & secret [Here](http://www.plurk.com/PlurkApp/register)
+* Register a pair of Plurk APP(consumer) key & secret at [here](http://www.plurk.com/PlurkApp/register)
 
 * Edit [config.json](https://github.com/headhsu2568/headlurk.js/blob/master/config.json)
 

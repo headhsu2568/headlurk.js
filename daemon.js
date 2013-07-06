@@ -24,6 +24,7 @@ function checkPlurks() {
     lastCheckTime = now;
     lastCheckHours = nowHours;
     lastCheckMins = nowMins;
+    delete require.cache[__dirname + '/plurks.json'];
 }
 function plurk(p) {
     console.log('child process is created for content: ' + p.content);

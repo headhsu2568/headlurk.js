@@ -27,7 +27,7 @@ Run Forever !
 
 * Fire it forever !
 
-        forever start -l forever.log -e err.log -o out.loh daemon.js
+        forever start -l forever.log -e err.log -o out.log daemon.js
 
 <br />
 - - -

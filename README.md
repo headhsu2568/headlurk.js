@@ -3,15 +3,9 @@ hEaDlurk.js v1.0
 
 Automatically Daily Plurk via Plurk OAuth API 2.0
 
-Required Modules
-----------------
-[node-fibers](https://github.com/laverdet/node-fibers)
-
-[node-oauth](https://github.com/ciaranj/node-oauth)
-
 Quick Start
 -----------
-* Install required modules
+* Install required modules: [node-fibers](https://github.com/laverdet/node-fibers), [node-oauth](https://github.com/ciaranj/node-oauth)
 
         npm install fibers oauth
 
@@ -24,6 +18,16 @@ Quick Start
 * Fire !
 
         node daemon.js
+
+Run Forever !
+-------------
+* Install [forever](https://github.com/nodejitsu/forever) module
+ 
+        sudo npm install forever -g
+
+* Fire it forever !
+
+        forever start -l forever.log -e err.log -o out.loh daemon.js
 
 <br />
 - - -

@@ -1,5 +1,7 @@
-hEaDlurk.js v1.0
-================
+hEaDlurk.js
+===========
+
+#### v1.0
 
 Automatically Daily Plurk via Plurk OAuth API 2.0
 
@@ -19,7 +21,7 @@ Quick Start
 
         node daemon.js
 
-Run Forever !
+Run hEaDlurk.js Forever !
 -------------
 * Install [forever](https://github.com/nodejitsu/forever) module
  

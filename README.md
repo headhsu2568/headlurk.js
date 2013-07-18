@@ -29,7 +29,7 @@ Run hEaDlurk.js Forever !
 
 * Fire it forever !
 
-        forever start -l forever.log -e err.log -o out.log daemon.js
+        forever start -al forever.log -e err.log -o out.log daemon.js
 
 <br />
 - - -

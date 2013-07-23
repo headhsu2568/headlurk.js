@@ -1,7 +1,7 @@
 hEaDlurk.js
 ===========
 
-#### v1.0
+#### v1.1
 
 Automatically Daily Plurk via Plurk OAuth API 2.0
 

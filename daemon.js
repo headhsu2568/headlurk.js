@@ -17,7 +17,7 @@ function checkPlurks() {
         else if(nowHours === plurkHours && nowMins < plurkMins) continue;
         if(lastCheckTime !== null) {
             if(lastCheckHours > plurkHours) continue;
-            else if(lastCheckHours === plurkHours && lastCheckMins > plurkMins) continue;
+            else if(lastCheckHours === plurkHours && lastCheckMins >= plurkMins) continue;
         }
         plurk(plurks[i]);
     }
